@@ -23,7 +23,6 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfileBinding
     private var encodedImage: String? = null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
@@ -128,7 +127,7 @@ class EditProfileActivity : AppCompatActivity() {
         return Base64.encodeToString(bytes, Base64.DEFAULT)
     }
 
-    private val pickImage = registerForActivityResult<Intent, ActivityResult>(
+    private val pickImage = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
         if (result.resultCode == RESULT_OK) {
@@ -148,6 +147,8 @@ class EditProfileActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()

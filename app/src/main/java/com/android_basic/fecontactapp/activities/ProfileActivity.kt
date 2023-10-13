@@ -9,7 +9,10 @@ import android.os.Bundle
 import android.util.Base64
 import android.view.View
 import android.Manifest
+import android.app.Dialog
 import android.content.pm.PackageManager
+import android.view.Window
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -92,9 +95,7 @@ class ProfileActivity : AppCompatActivity() {
 
         //remove profile
         binding.textRemove.setOnClickListener {
-            Toast.makeText(this,"Remove..",Toast.LENGTH_SHORT).show()
-            dbHelper.deleteContact(receiveId)
-            finish()
+            removeDialog(receiveId)
         }
     }
 
@@ -106,6 +107,24 @@ class ProfileActivity : AppCompatActivity() {
             null
         }
     }
+    private fun removeDialog(id: Long){
+        val removeDialog = Dialog(this)
+        removeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        removeDialog.setContentView(R.layout.dialog_remove)
+
+        val textRemove: TextView = removeDialog.findViewById(R.id.text_dialog_delete)
+        val textCancel: TextView = removeDialog.findViewById(R.id.text_dialog_cancel)
+
+        textRemove.setOnClickListener {
+            Toast.makeText(this,"Remove..",Toast.LENGTH_SHORT).show()
+            dbHelper.deleteContact(id)
+            finish()
+        }
+
+        textCancel.setOnClickListener { removeDialog.dismiss() }
+        removeDialog.show()
+    }
+
 
 
 

@@ -75,7 +75,7 @@ class AddContactActivity : AppCompatActivity() {
         return Base64.encodeToString(bytes, Base64.DEFAULT)
     }
 
-    private val pickImage = registerForActivityResult<Intent, ActivityResult>(
+    private val pickImage = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result: ActivityResult ->
         if (result.resultCode == RESULT_OK) {
