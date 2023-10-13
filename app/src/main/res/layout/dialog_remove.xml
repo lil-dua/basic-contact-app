@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/text_title_delete"
-        android:text="Remove Account?"
+        android:text="Remove Contact?"
         android:textStyle="bold"
         android:textSize="20sp"
         android:textColor="@color/white"
@@ -61,7 +61,7 @@
         android:text="@string/remove"
         android:paddingVertical="10dp"
         android:paddingHorizontal="40dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="20dp"
         android:gravity="center"
         android:textStyle="bold"
         android:textSize="17sp"

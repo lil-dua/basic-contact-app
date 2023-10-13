@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.android_basic.fecontactapp.R
 import com.android_basic.fecontactapp.adapter.ContactAdapter
 import com.android_basic.fecontactapp.database.DatabaseHelper
 import com.android_basic.fecontactapp.databinding.ActivitySearchBinding
@@ -24,7 +25,9 @@ class SearchActivity : AppCompatActivity() {
 
     private fun initView() {
         //cancel text
-        binding.textCancel.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        binding.textCancel.setOnClickListener {
+            finish()
+        }
 
         //binding recycle view
         val dbHelper = DatabaseHelper(this)

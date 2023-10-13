@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
+import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
@@ -44,26 +45,49 @@ class AddContactActivity : AppCompatActivity() {
         //add contact
         binding.buttonAddContact.setOnClickListener {
             loading(true)
-            val name = binding.inputName.text.toString()
-            val phone = binding.inputPhone.text.toString()
-            val email = binding.inputEmail.text.toString()
-            val image = encodedImage.toString()
-            val dbHelper = DatabaseHelper(this)
-            if(image == null){
-                val contact = Contact(id = 1, name = name,phone = phone,email = email,image = "")
-                dbHelper.addContact(contact)
-                Toast.makeText(this,"Add contact successfully!",Toast.LENGTH_SHORT).show()
+            if(validateInput()){    //check validate for input
+                val name = binding.inputName.text.toString()
+                val phone = binding.inputPhone.text.toString()
+                val email = binding.inputEmail.text.toString()
+                val image = encodedImage.toString()
+                val dbHelper = DatabaseHelper(this)
+                if(image == null){
+                    val contact = Contact(id = 1, name = name,phone = phone,email = email,image = "")
+                    dbHelper.addContact(contact)
+                    Toast.makeText(this,"Add contact successfully!",Toast.LENGTH_SHORT).show()
+                }else{
+                    val contact = Contact(id = 1 ,name = name,phone = phone,email = email,image = image)
+                    dbHelper.addContact(contact)
+                    Toast.makeText(this,"Add contact successfully!",Toast.LENGTH_SHORT).show()
+                }
                 loading(false)
+                finish()
             }else{
-                val contact = Contact(id = 1 ,name = name,phone = phone,email = email,image = image)
-                dbHelper.addContact(contact)
-                Toast.makeText(this,"Add contact successfully!",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,"Add contact failed!",Toast.LENGTH_SHORT).show()
                 loading(false)
             }
-            finish()
         }
     }
-
+    private fun validateInput(): Boolean {
+        if(binding.inputName.text.isNullOrEmpty()){
+            binding.inputName.error = "User name is required!"
+            binding.inputName.requestFocus()
+            return false
+        }else if (binding.inputPhone.text.isNullOrEmpty()){
+            binding.inputPhone.error = "Phone number is required!"
+            binding.inputPhone.requestFocus()
+            return false
+        }else if (binding.inputEmail.text.isNullOrEmpty()){
+            binding.inputEmail.error = "Email is required!"
+            binding.inputEmail.requestFocus()
+            return false
+        }else if(!Patterns.EMAIL_ADDRESS.matcher(binding.inputEmail.text).matches()) {
+            binding.inputEmail.error = "Input must be a email!"
+            binding.inputEmail.requestFocus()
+            return false
+        }
+        return true
+    }
 
     private fun encodeImage(bitmap: Bitmap): String {
         val previewWidth = 1000

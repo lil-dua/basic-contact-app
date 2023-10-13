@@ -15,7 +15,7 @@
         android:background="@drawable/background_back"
         android:layout_gravity="start"
         android:padding="7dp"
-        android:src="@drawable/ic_arrow_back"
+        android:src="@drawable/ic_close"
         app:tint="@color/primary_text_color"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

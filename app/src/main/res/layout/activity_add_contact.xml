@@ -24,7 +24,7 @@
             android:background="@drawable/background_back"
             android:layout_gravity="start"
             android:padding="7dp"
-            android:src="@drawable/ic_arrow_back"
+            android:src="@drawable/ic_close"
             app:tint="@color/primary_text_color"/>
 
     </FrameLayout>
@@ -51,7 +51,7 @@
 
         <TextView
             android:id="@+id/text_title_account"
-            android:text="ACCOUNT"
+            android:text="@string/contacts"
             android:textSize="35dp"
             android:textStyle="bold"
             android:textColor="@color/primary_text_color"
@@ -107,12 +107,12 @@
         app:hintTextColor="@color/primary_text_color"
         app:cursorColor="@color/primary_text_color"
         android:textColorHint="@color/primary_text_color"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_name"
             android:textSize="17sp"
             android:textColor="@color/primary_text_color"
-            android:background="@color/secondary_color"
+            android:background="@drawable/background_back"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </com.google.android.material.textfield.TextInputEditText>
@@ -128,12 +128,12 @@
         app:hintTextColor="@color/primary_text_color"
         app:cursorColor="@color/primary_text_color"
         android:textColorHint="@color/primary_text_color"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_phone"
             android:textSize="17sp"
             android:textColor="@color/primary_text_color"
-            android:background="@color/secondary_color"
+            android:background="@drawable/background_back"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="number">
@@ -150,12 +150,12 @@
         app:hintTextColor="@color/primary_text_color"
         app:cursorColor="@color/primary_text_color"
         android:layout_marginTop="30dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/input_email"
             android:textSize="17sp"
             android:textColor="@color/primary_text_color"
-            android:background="@color/secondary_color"
+            android:background="@drawable/background_back"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textEmailAddress">
