@@ -59,6 +59,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/username"
+            app:hintTextColor="@color/primary_text_color"
+            app:cursorColor="@color/primary_text_color"
             android:textColorHint="@color/primary_text_color"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -78,6 +80,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:hint="@string/phone"
+            app:hintTextColor="@color/primary_text_color"
+            app:cursorColor="@color/primary_text_color"
             android:textColorHint="@color/primary_text_color"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText
@@ -96,6 +100,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:hint="@string/email"
+            app:hintTextColor="@color/primary_text_color"
+            app:cursorColor="@color/primary_text_color"
             android:textColorHint="@color/primary_text_color"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
             <com.google.android.material.textfield.TextInputEditText

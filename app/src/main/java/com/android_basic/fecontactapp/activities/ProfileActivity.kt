@@ -30,7 +30,6 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        overridePendingTransition(R.anim.slide_in, R.anim.slide_out)
         dbHelper = DatabaseHelper(this)
     }
 

@@ -56,7 +56,18 @@ class EditProfileActivity : AppCompatActivity() {
             binding.textFirstChar.visibility = View.VISIBLE
         }
         //back button
-        binding.imageBackToProfile.setOnClickListener { finish() }
+        binding.imageBackToProfile.setOnClickListener {
+            //start activity
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra(ContactAdapter.KEY_ID,receiveId)
+            intent.putExtra(ContactAdapter.KEY_NAME,receiveName)
+            intent.putExtra(ContactAdapter.KEY_PHONE,receivePhone)
+            intent.putExtra(ContactAdapter.KEY_EMAIL,receiveEmail)
+            intent.putExtra(ContactAdapter.KEY_IMAGE,receiveImage)
+            startActivity(intent)
+
+            finish()
+        }
 
         //upload image
         binding.imageUploadImage.setOnClickListener {

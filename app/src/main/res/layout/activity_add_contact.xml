@@ -104,6 +104,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/username"
+        app:hintTextColor="@color/primary_text_color"
+        app:cursorColor="@color/primary_text_color"
         android:textColorHint="@color/primary_text_color"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
         <com.google.android.material.textfield.TextInputEditText
@@ -123,6 +125,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/phone"
+        app:hintTextColor="@color/primary_text_color"
+        app:cursorColor="@color/primary_text_color"
         android:textColorHint="@color/primary_text_color"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
         <com.google.android.material.textfield.TextInputEditText
@@ -143,6 +147,8 @@
         android:layout_height="wrap_content"
         android:textColorHint="@color/primary_text_color"
         android:hint="@string/email"
+        app:hintTextColor="@color/primary_text_color"
+        app:cursorColor="@color/primary_text_color"
         android:layout_marginTop="30dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
         <com.google.android.material.textfield.TextInputEditText
