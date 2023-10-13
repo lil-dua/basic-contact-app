@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@color/primary_color"
+    tools:context=".activities.ProfileActivity">
+
+    <ImageView
+        android:id="@+id/image_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/background_back"
+        android:layout_gravity="start"
+        android:padding="7dp"
+        android:src="@drawable/ic_arrow_back"
+        app:tint="@color/primary_text_color"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <FrameLayout
+        android:id="@+id/frame_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background_contact_avatar"
+        app:layout_constraintTop_toBottomOf="@id/image_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/image_profile_contact"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:scaleType="centerCrop"
+            app:riv_oval="true"/>
+
+        <TextView
+            android:id="@+id/text_first_char"
+            android:text="H"
+            android:textSize="62sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/text_contact_name"
+        android:text="@string/username"
+        android:textColor="@color/primary_text_color"
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/frame_contact"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_button_call"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_call"
+        android:backgroundTint="@color/primary_text_color"
+        app:layout_constraintStart_toEndOf="@id/frame_contact"
+        app:layout_constraintTop_toBottomOf="@id/text_contact_name"/>
+
+    <LinearLayout
+        android:id="@+id/constraint_information"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/background_contact"
+        app:layout_constraintTop_toBottomOf="@id/text_contact_name"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@drawable/background_information"
+            android:padding="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_phone"
+                android:src="@drawable/ic_call"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="5dp"
+                app:tint="@color/primary_text_color"
+                android:background="@drawable/background_back"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/text_title_phone"
+                android:text="@string/phone"
+                android:textColor="@color/primary_text_color"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/icon_phone"
+                app:layout_constraintStart_toEndOf="@id/icon_phone"/>
+
+            <TextView
+                android:id="@+id/text_phone_number"
+                android:text="09019016161"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/icon_phone"
+                app:layout_constraintStart_toEndOf="@id/icon_phone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@drawable/background_information"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon_email"
+                android:src="@drawable/ic_email"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="5dp"
+                app:tint="@color/primary_text_color"
+                android:background="@drawable/background_back"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/text_title_email"
+                android:text="@string/email"
+                android:textColor="@color/primary_text_color"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/icon_email"
+                app:layout_constraintStart_toEndOf="@id/icon_email"/>
+
+            <TextView
+                android:id="@+id/text_email"
+                android:text="huuthom@gmail.com"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/icon_email"
+                app:layout_constraintStart_toEndOf="@id/icon_email"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/constraint_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/text_edit"
+                android:drawableStart="@drawable/ic_edit"
+                android:drawableTint="@color/white"
+                android:textColor="@color/white"
+                android:drawablePadding="5dp"
+                android:text="@string/edit_profile"
+                android:gravity="center"
+                android:padding="20dp"
+                android:background="@drawable/background_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/text_remove"
+                android:drawableStart="@drawable/ic_close"
+                android:drawablePadding="5dp"
+                android:text="@string/remove"
+                android:gravity="center"
+                android:padding="20dp"
+                android:layout_marginStart="40dp"
+                android:background="@drawable/background_remove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

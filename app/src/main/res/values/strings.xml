@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FE Contact App</string>
+    <string name="username">Username</string>
+    <string name="user_information">User information</string>
+    <string name="email">Email</string>
+    <string name="add_new_contact">ADD NEW CONTACT</string>
+    <string name="phone">Phone</string>
+    <string name="remove">Remove   </string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="cancel">Cancel</string>
+    <string name="contacts">CONTACTS</string>
+    <string name="_0851924512">0851924512</string>
+</resources>
