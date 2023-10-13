@@ -1,8 +1,12 @@
 package com.android_basic.fecontactapp.activities
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android_basic.fecontactapp.R
 import com.android_basic.fecontactapp.adapter.OuterContactAdapter
@@ -16,10 +20,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: OuterContactAdapter
     private lateinit var dbHelper: DatabaseHelper
 
+    companion object{
+        const val READ_EXTERNAL_STORAGE = 102
+        const val WRITE_EXTERNAL_STORAGE = 103
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        checkPermission()
     }
 
     override fun onStart() {
@@ -54,7 +64,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun groupContactByFirstCharacter(listContact: List<Contact>): List<ContactGroup> {
         val contactsMap = mutableMapOf <Char,MutableList<Contact>>()
 
@@ -75,4 +84,18 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    private fun checkPermission(){
+        val permissionRead = Manifest.permission.READ_EXTERNAL_STORAGE
+        val permissionWrite = Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+        if (ContextCompat.checkSelfPermission(this, permissionRead) != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted, request the permission
+            ActivityCompat.requestPermissions(this, arrayOf(permissionRead), READ_EXTERNAL_STORAGE)
+        }
+
+        if (ContextCompat.checkSelfPermission(this, permissionWrite) != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted, request the permission
+            ActivityCompat.requestPermissions(this, arrayOf(permissionWrite), WRITE_EXTERNAL_STORAGE)
+        }
+    }
 }

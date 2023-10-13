@@ -1,27 +1,26 @@
 package com.android_basic.fecontactapp.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
 import android.view.View
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import com.android_basic.fecontactapp.R
 import com.android_basic.fecontactapp.adapter.ContactAdapter
 import com.android_basic.fecontactapp.database.DatabaseHelper
 import com.android_basic.fecontactapp.databinding.ActivityEditProfileBinding
 import com.android_basic.fecontactapp.model.Contact
-import java.io.ByteArrayOutputStream
-import java.io.FileNotFoundException
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfileBinding
-    private var encodedImage: String? = null
+    private var imageContact: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,13 +46,14 @@ class EditProfileActivity : AppCompatActivity() {
         binding.textEditName.setText(receiveName.toString())
         binding.textEditPhone.setText(receivePhone.toString())
         binding.textEditEmail.setText(receiveEmail.toString())
-        if (getBitmapFromEncodedString(receiveImage) != null){
+        if(receiveImage != ""){
             binding.textFirstChar.visibility = View.GONE
-            binding.imageProfileContact.setImageBitmap(getBitmapFromEncodedString(receiveImage))
+            binding.imageProfileContact.setImageURI(receiveImage?.toUri())
         }else{
-            binding.textFirstChar.text = receiveName?.first().toString()
             binding.textFirstChar.visibility = View.VISIBLE
+            binding.textFirstChar.text = receiveName?.first().toString()
         }
+
         //back button
         binding.imageBackToProfile.setOnClickListener {
             //start activity
@@ -70,10 +70,7 @@ class EditProfileActivity : AppCompatActivity() {
 
         //upload image
         binding.imageUploadImage.setOnClickListener {
-            val intent =
-            Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            pickImage.launch(intent)
+            chooseImageFromDevice(this)
         }
 
         //save button
@@ -81,7 +78,7 @@ class EditProfileActivity : AppCompatActivity() {
             val name = binding.textEditName.text.toString()
             val phone = binding.textEditPhone.text.toString()
             val email = binding.textEditEmail.text.toString()
-            val image = encodedImage.toString()
+            val image = imageContact
 
             val dbHelper = DatabaseHelper(this)
             if(image != null){
@@ -108,47 +105,29 @@ class EditProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun getBitmapFromEncodedString(encodedImage: String?): Bitmap? {
-        return if (encodedImage != null) {
-            val bytes = Base64.decode(encodedImage, Base64.DEFAULT)
-            BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-        } else {
-            null
-        }
+
+    private fun chooseImageFromDevice(activity: Activity) {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        intent.type = "image/*"
+        activity.startActivityForResult(intent, AddContactActivity.PICK_IMAGE_REQUEST)
     }
 
-    private fun encodeImage(bitmap: Bitmap): String {
-        val previewWidth = 1000
-        val previewHeight = bitmap.height * previewWidth / bitmap.width
-        val previewBitMap = Bitmap.createScaledBitmap(bitmap, previewWidth, previewHeight, false)
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        previewBitMap.compress(Bitmap.CompressFormat.JPEG, 50, byteArrayOutputStream)
-        val bytes = byteArrayOutputStream.toByteArray()
-        return Base64.encodeToString(bytes, Base64.DEFAULT)
-    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-    private val pickImage = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result: ActivityResult ->
-        if (result.resultCode == RESULT_OK) {
-            if (result.data != null) {
-                val imageUri = result.data!!.data
-                try {
-                    val inputStream =
-                        contentResolver.openInputStream(imageUri!!)
-                    val bitmap =
-                        BitmapFactory.decodeStream(inputStream)
-                    binding.imageProfileContact.setImageBitmap(bitmap)
-                    binding.textFirstChar.visibility = View.GONE
-                    encodedImage = encodeImage(bitmap)
-                } catch (e: FileNotFoundException) {
-                    e.printStackTrace()
-                }
+        if (requestCode == AddContactActivity.PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            // Image selected, save the URI to the database
+            val selectedImageUri = data?.data
+            selectedImageUri?.let { uri ->
+                binding.imageProfileContact.setImageURI(uri)
+                binding.textFirstChar.visibility = View.GONE
+                imageContact = getImageUri(uri)
             }
         }
     }
-
-
+    private fun getImageUri(uri: Uri): String{
+        return uri.toString()
+    }
 
     override fun onDestroy() {
         super.onDestroy()

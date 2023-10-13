@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.android_basic.fecontactapp.R
 import com.android_basic.fecontactapp.activities.ProfileActivity
@@ -53,9 +54,11 @@ class ContactAdapter(
         holder.textContact.text = data.name
         holder.textPhone.text = data.phone
         holder.textImage.text = data.name[0].toString()
-        if (getBitmapFromEncodedString(data.image) != null){
-            holder.imageContact.setImageBitmap(getBitmapFromEncodedString(data.image))
+        if (data.image != ""){
+            holder.imageContact.setImageURI(data.image.toUri())
             holder.textImage.visibility = View.GONE
+        }else{
+            holder.textImage.visibility = View.VISIBLE
         }
 
         //set action
@@ -67,15 +70,6 @@ class ContactAdapter(
             intent.putExtra(KEY_PHONE,data.phone)
             intent.putExtra(KEY_EMAIL,data.email)
             context.startActivity(intent)
-        }
-    }
-
-    private fun getBitmapFromEncodedString(encodedImage: String?): Bitmap? {
-        return if (encodedImage != null) {
-            val bytes = Base64.decode(encodedImage, Base64.DEFAULT)
-            BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-        } else {
-            null
         }
     }
 

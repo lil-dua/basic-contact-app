@@ -1,8 +1,10 @@
 package com.android_basic.fecontactapp.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64
@@ -20,8 +22,10 @@ import java.io.FileNotFoundException
 
 class AddContactActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddContactBinding
-    private var encodedImage: String? = null
-
+    private var imageContact: String? = null
+    companion object{
+        const val PICK_IMAGE_REQUEST = 1
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddContactBinding.inflate(layoutInflater)
@@ -36,10 +40,7 @@ class AddContactActivity : AppCompatActivity() {
 
         //select image
         binding.layoutImage.setOnClickListener {
-            val intent =
-                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            pickImage.launch(intent)
+            chooseImageFromDevice(this)
         }
 
         //add contact
@@ -49,7 +50,7 @@ class AddContactActivity : AppCompatActivity() {
                 val name = binding.inputName.text.toString()
                 val phone = binding.inputPhone.text.toString()
                 val email = binding.inputEmail.text.toString()
-                val image = encodedImage.toString()
+                val image = imageContact
                 val dbHelper = DatabaseHelper(this)
                 if(image == null){
                     val contact = Contact(id = 1, name = name,phone = phone,email = email,image = "")
@@ -89,6 +90,28 @@ class AddContactActivity : AppCompatActivity() {
         return true
     }
 
+    private fun chooseImageFromDevice(activity: Activity) {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        intent.type = "image/*"
+        activity.startActivityForResult(intent, PICK_IMAGE_REQUEST)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
+            // Image selected, save the URI to the database
+            val selectedImageUri = data?.data
+            selectedImageUri?.let { uri ->
+                binding.imageProfile.setImageURI(uri)
+                binding.textAddImage.visibility = View.GONE
+                imageContact = getImageUri(uri)
+            }
+        }
+    }
+    private fun getImageUri(uri: Uri): String{
+        return uri.toString()
+    }
     private fun encodeImage(bitmap: Bitmap): String {
         val previewWidth = 1000
         val previewHeight = bitmap.height * previewWidth / bitmap.width
@@ -112,7 +135,6 @@ class AddContactActivity : AppCompatActivity() {
                         BitmapFactory.decodeStream(inputStream)
                     binding.imageProfile.setImageBitmap(bitmap)
                     binding.textAddImage.visibility = View.GONE
-                    encodedImage = encodeImage(bitmap)
                 } catch (e: FileNotFoundException) {
                     e.printStackTrace()
                 }

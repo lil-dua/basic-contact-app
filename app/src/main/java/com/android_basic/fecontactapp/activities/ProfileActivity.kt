@@ -16,6 +16,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import com.android_basic.fecontactapp.R
 import com.android_basic.fecontactapp.adapter.ContactAdapter
 import com.android_basic.fecontactapp.database.DatabaseHelper
@@ -53,9 +54,10 @@ class ProfileActivity : AppCompatActivity() {
         binding.textContactName.text = receiveName
         binding.textPhoneNumber.text = receivePhone
         binding.textEmail.text = receiveEmail
-        if(getBitmapFromEncodedString(receiveImage) != null){
+
+        if(receiveImage != ""){
             binding.textFirstChar.visibility = View.GONE
-            binding.imageProfileContact.setImageBitmap(getBitmapFromEncodedString(receiveImage))
+            binding.imageProfileContact.setImageURI(receiveImage?.toUri())
         }else{
             binding.textFirstChar.visibility = View.VISIBLE
             binding.textFirstChar.text = receiveName?.first().toString()
@@ -99,14 +101,6 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun getBitmapFromEncodedString(encodedImage: String?): Bitmap? {
-        return if (encodedImage != null) {
-            val bytes = Base64.decode(encodedImage, Base64.DEFAULT)
-            BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-        } else {
-            null
-        }
-    }
     private fun removeDialog(id: Long){
         val removeDialog = Dialog(this)
         removeDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
