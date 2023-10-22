@@ -38,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         actions()  //set action for even click
     }
 
-
     private fun initView() {
         dbHelper = DatabaseHelper(this)
         val data = dbHelper.getAllContacts()
